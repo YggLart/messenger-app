@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
       if (user) {
         setUser(user);
         setLoading(false);
-        if (user) history.push("/chats");
+        if (user) history.push("messenger-app/chats");
       } else {
         // User is signed out
         // ...
