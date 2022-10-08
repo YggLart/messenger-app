@@ -1,0 +1,166 @@
+// variables
+$primary: #7895B2
+$primary-light: #AEBDCA
+$secondary: #E8DFCA
+$secondary-light: #F5EFE6
+$gray-dark: #333
+$white: #fff
+$black: #000
+
+$google: #4285F4
+$facebook: #29487D
+
+$default-font: 'Open Sans', sans-serif
+
+// mixin
+@mixin flex-center
+    display: flex
+    align-items: center
+    justify-content: center
+
+// resets
+body
+    padding: 0
+    margin: 0
+    box-sizing: border-box
+
+h1,h2,h3,h4,h5,h6,p
+    padding: 0
+    margin: 0
+
+// global
+body
+    width: 100vw
+    height: 100vh
+    background-color: $primary
+    color: $gray-dark
+    overflow: hidden
+
+    @include flex-center
+
+.btn
+    @include flex-center
+    padding: 1rem 2rem
+    gap: 1rem
+    border-radius: 5rem
+
+    color: $white
+    background-color: $primary
+
+    cursor: pointer
+
+    &.google
+        background-color: $google
+
+    &.facebook
+        background-color: $facebook
+
+// login page
+#login-page
+    font-family: $default-font
+    @include flex-center
+
+    flex-direction: column
+    gap: 1rem
+
+    border-radius: 1rem
+    padding: 2rem
+    background-color: $white
+
+    h2
+        margin-bottom: 2rem
+
+// chats page
+#chats-page
+    font-family: $default-font
+    @include flex-center
+    flex-direction: column
+
+    .navbar
+        width: 100vw
+        height: 4rem
+        padding: 1rem
+
+        box-sizing: border-box
+
+        display: flex
+        justify-content: space-between
+        align-items: center
+
+        &::before
+            content: ''
+            position: absolute
+            width: 100vw
+            height: 100vh
+            right: 0
+            top: 0
+            z-index: 12
+            transition: 1s
+            
+            background: $black
+            opacity: 0
+
+        &.active
+            &::before
+                opacity: .6
+
+    .menu-options
+        @include flex-center
+        flex-direction: column
+        gap: 1rem
+        border-radius: 1rem
+        z-index: 15
+
+        font-size: clamp(1rem, 5vw, 2rem)
+
+        padding: 1rem 0
+        width: fit-content
+        position: fixed
+        top: 1rem
+        right: 1rem
+        margin: 0
+
+        background-color: $primary-light
+
+        p
+            padding: 1rem 3rem
+
+    .menu-icon
+        @include flex-center
+        font-size: 2rem
+        cursor: pointer
+        z-index: 10
+
+    .logo
+        @include flex-center
+        font-size: 1.3rem
+        gap: 1rem
+
+        svg
+            font-size: 2rem
+
+    // dealing with react-chat-engine
+    .ce-chat-engine
+        font-family: $default-font
+        width: 100vw
+
+        .ce-wrapper // container
+            height: calc(100vh - 4rem)
+
+        .ce-chat-list-column // container da lista de chats
+            .ce-chat-list // lista de chats
+                .ce-chats-container // container do header + body
+
+                    .ce-chat-form-container // header
+
+                    div
+                        span
+                            padding: 1rem
+
+                    div:first-child
+                        font-family: $default-font
+                        span
+                            padding: 0
+
+        .ce-my-message-bubble
+            margin-right: .5rem
