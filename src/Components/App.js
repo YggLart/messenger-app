@@ -1,9 +1,6 @@
 import React from "react";
-
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import { AuthProvider } from "../Contexts/AuthContext";
-
 import { Chats } from "./Chats";
 import { Login } from "./Login";
 
