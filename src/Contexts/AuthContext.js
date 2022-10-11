@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
 
 const AuthContext = createContext();
@@ -39,35 +40,43 @@ export const AuthProvider = ({ children }) => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
+        // const token = credential.accessToken;
+        // const user = result.user;
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(errorCode);
+        // const errorMessage = error.message;
+        // const email = error.customData.email;
+        // const credential = GoogleAuthProvider.credentialFromError(error);
       });
   };
 
   const signInFacebook = () => {
     signInWithPopup(auth, facebookProvider)
       .then((result) => {
-        const user = result.user;
+        // const user = result.user;
         const credential = FacebookAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
+        // const accessToken = credential.accessToken;
 
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
+        console.log(errorCode);
+        // const errorMessage = error.message;
+        // const email = error.customData.email;
         const credential = FacebookAuthProvider.credentialFromError(error);
       });
   };
 
-  const value = { user, signInGoogle, signInFacebook };
+  // log out
+  const logout = async () => {
+    await signOut(auth);
+    history.push("/");
+  };
+
+  const value = { user, signInGoogle, signInFacebook, logout };
 
   return (
     <AuthContext.Provider value={value}>

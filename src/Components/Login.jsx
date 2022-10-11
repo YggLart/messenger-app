@@ -1,8 +1,8 @@
 import React from "react";
+import { useAuth } from "../Contexts/AuthContext";
+// ui
 import { AiOutlineGoogle as GoogleIcon } from "react-icons/ai";
 import { FaFacebookF as FacebookIcon } from "react-icons/fa";
-
-import { useAuth } from "../Contexts/AuthContext";
 
 export const Login = () => {
   const { signInGoogle, signInFacebook } = useAuth();

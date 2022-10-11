@@ -1,15 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { useAuth } from "../Contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import { ChatEngine } from "react-chat-engine";
-import { auth } from "../firebase";
-import { signOut } from "firebase/auth";
-
 import { HiOutlineChat as LogoIcon } from "react-icons/hi";
 
 export const Chats = () => {
-  function handleLogout() {
-    signOut(auth);
-  }
+  const { logout } = useAuth();
 
   return (
     <div id="chats-page">
@@ -21,12 +17,12 @@ export const Chats = () => {
 
         <div className="menu-options inactive">
           <p>What is this?</p>
-          <p onClick={handleLogout}>Logout</p>
+          <p onClick={logout}>Logout</p>
         </div>
       </div>
       <ChatEngine
-        userName="."
-        userSecret="."
+        userName="Ygg"
+        userSecret="202020"
         projectID="ddd625e5-696f-4015-88b2-0f7326d0e7f6"
       />
     </div>
