@@ -2,30 +2,25 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ChatEngine } from "react-chat-engine";
 import { BsThreeDots as MenuIcon } from "react-icons/bs";
-import { app } from "../firebase";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 
 import { HiOutlineChat as LogoIcon } from "react-icons/hi";
 
 export const Chats = () => {
-  const [menuActive, setMenuActive] = useState(false);
+  function handleLogout() {}
 
-  function handleClick() {}
   return (
     <div id="chats-page">
       <div className="navbar">
-        <div className="menu-options inactive">
-          <p>Logout</p>
-          <p>What is this?</p>
-          <p>Author</p>
-        </div>
-
         <div className="logo">
           <LogoIcon />
           Ygg's Messenger
         </div>
 
-        <div className="menu-icon" onClick={handleClick}>
-          <MenuIcon />
+        <div className="menu-options inactive">
+          <p>What is this?</p>
+          <p onClick={handleLogout}>Logout</p>
         </div>
       </div>
       <ChatEngine

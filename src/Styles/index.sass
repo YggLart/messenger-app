@@ -96,7 +96,7 @@ body
             top: 0
             z-index: 12
             transition: 1s
-            
+
             background: $black
             opacity: 0
 
@@ -106,24 +106,22 @@ body
 
     .menu-options
         @include flex-center
-        flex-direction: column
-        gap: 1rem
+        gap: .3rem
         border-radius: 1rem
         z-index: 15
-
-        font-size: clamp(1rem, 5vw, 2rem)
+        user-select: none
+        box-sizing: border-box
 
         padding: 1rem 0
         width: fit-content
-        position: fixed
-        top: 1rem
-        right: 1rem
-        margin: 0
-
-        background-color: $primary-light
 
         p
-            padding: 1rem 3rem
+            box-sizing: border-box
+            cursor: pointer
+            padding: .5rem 1rem
+
+            &:hover
+                background-color: $primary-light
 
     .menu-icon
         @include flex-center

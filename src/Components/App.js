@@ -13,8 +13,8 @@ function App() {
       <Router>
         <AuthProvider>
           <Switch>
-            <Route path="messenger-app/chats" component={Chats} />
-            <Route path="messenger-app/" component={Login} />
+            <Route path="/chats" component={Chats} />
+            <Route path="/" component={Login} />
           </Switch>
         </AuthProvider>
       </Router>
