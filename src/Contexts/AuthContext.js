@@ -1,13 +1,14 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { auth } from "../firebase";
 import {
-  onAuthStateChanged,
-  GoogleAuthProvider,
   FacebookAuthProvider,
+  GoogleAuthProvider,
+  linkWithCredential,
+  onAuthStateChanged,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { auth } from "../firebase";
 
 const AuthContext = createContext();
 
@@ -25,10 +26,7 @@ export const AuthProvider = ({ children }) => {
         setUser(user);
         setLoading(false);
         if (user) history.push("/chats");
-      } else {
-        setUser(null);
-        setLoading(false);
-      }
+      } 
     });
   }, [user, history]);
 
@@ -44,15 +42,14 @@ export const AuthProvider = ({ children }) => {
         // const user = result.user;
       })
       .catch((error) => {
-        const errorCode = error.code;
-        console.log(errorCode);
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // const errorCode = error.code;
         // const errorMessage = error.message;
         // const email = error.customData.email;
-        // const credential = GoogleAuthProvider.credentialFromError(error);
       });
   };
 
-  const signInFacebook = () => {
+  const signInFacebook = async () => {
     signInWithPopup(auth, facebookProvider)
       .then((result) => {
         // const user = result.user;
@@ -62,10 +59,24 @@ export const AuthProvider = ({ children }) => {
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
-        console.log(errorCode);
-        // const errorMessage = error.message;
-        // const email = error.customData.email;
+        // TODO: link facebook account to user
+        const data = error.customData;
+        const email = data.email;
+        const result = data._tokenResponse;
+        const verifiedProvider = result.verifiedProvider;
+
+        if (verifiedProvider[0] === "google.com") {
+          var NewGoogleProvider = new GoogleAuthProvider().setCustomParameters({
+            login_hint: email,
+          });
+          signInWithPopup(auth, NewGoogleProvider).then((res) => {
+            console.log(res);
+            const user = res.user;
+            const credential = FacebookAuthProvider.credentialFromResult(res);
+            linkWithCredential(user, credential);
+          });
+        }
+
         const credential = FacebookAuthProvider.credentialFromError(error);
       });
   };

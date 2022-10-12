@@ -73,18 +73,6 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-#chats-page .navbar::before {
-  content: "";
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  right: 0;
-  top: 0;
-  z-index: 12;
-  transition: 1s;
-  background: #000;
-  opacity: 0;
-}
 #chats-page .navbar.active::before {
   opacity: 0.6;
 }
