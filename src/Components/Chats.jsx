@@ -38,22 +38,44 @@ export const Chats = () => {
         .then(() => setLoading(false))
 
         .catch((e) => {
-          let formdata = new FormData();
-          formdata.append("email", user.email);
-          formdata.append("username", user.email);
-          formdata.append("secret", user.uid);
+          // let formdata = new FormData();
+          // formdata.append("email", user.email);
+          // formdata.append("username", user.email);
+          // formdata.append("secret", user.uid);
 
           getFile(user.photoURL).then((avatar) => {
-            formdata.append("avatar", avatar, avatar.name);
+            var data = {
+              username: user.email,
+              secret: user.uid,
+              email: user.email,
+              avatar: avatar,
+            };
 
-            axios
-              .post("https://api.chatengine.io/users/", formdata, {
-                headers: {
-                  "private-key": process.env.REACT_APP_CHAT_ENGINE_KEY,
-                },
+            var config = {
+              method: "post",
+              url: "https://api.chatengine.io/users/",
+              headers: {
+                "PRIVATE-KEY": process.env.REACT_APP_CHAT_ENGINE_KEY,
+              },
+              data: data,
+            };
+            // formdata.append("avatar", avatar, avatar.name);
+            axios(config)
+              .then((res) => {
+                console.log(JSON.stringify(res.data));
               })
               .then(() => setLoading(false))
-              .catch((e) => console.log("e", e.response));
+              .catch((error) => {
+                console.log(error);
+              });
+            // axios
+            //   .post("https://api.chatengine.io/users/", formdata, {
+            //     headers: {
+            //       "private-key": process.env.REACT_APP_CHAT_ENGINE_KEY,
+            //     },
+            //   })
+            //   .then(() => setLoading(false))
+            //   .catch((e) => console.log("e", e.response));
           });
         });
     }
